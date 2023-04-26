@@ -7,6 +7,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', Index.as_view()),
     path('test/', Test.as_view(), name="test"),
-    path('plamakarotatod/', Test.as_view(), name="plus")
+    path('test/placrado', Test.as_view(), name="plus"),
+    path('test/placrado/neo', Test.as_view(), name="neo")
 
 ]

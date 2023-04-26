@@ -1,4 +1,8 @@
+{% if point.get_absolute_url in request.build_absolute_uri %}
 <details open>
+{% else %}
+<details>
+{% endif %}
 {% if request.build_absolute_uri == point.get_absolute_url or request.path == point.get_absolute_url %}
     <summary><a style="color: red" href="{{ point.get_absolute_url }}">{{ point.name }}</a></summary>
 {% else %}
