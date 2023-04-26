@@ -1,0 +1,17 @@
+<ul>
+    {% for point in menu_points %}
+        {% if point.parent is None %}
+            <details>
+            <summary><a href="{{ point.check_absolute_url }}">{{ point.name }}</a></summary>
+                {% if point.children.count > 0 %}
+                    <ul>
+                        {% for point_child in point.children.all %}
+                            {% include "custom_tags/menu_tags/menu-point.html" with point=point_child%}
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+            </details>
+        {% endif %}
+    {% endfor %}
+</ul>

@@ -1,0 +1,8 @@
+<li><a href="{{ point.url }}">{{ point.name }}</a></li>
+{% if point.children.count > 0 %}
+    <ul>
+        {% for child in point.children.all %}
+            {% include "custom_tags/menu_tags/menu-point.html" with point=child%}
+        {% endfor %}
+    </ul>
+{% endif %}
