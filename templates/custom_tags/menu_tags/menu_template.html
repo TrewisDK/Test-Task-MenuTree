@@ -1,12 +1,19 @@
 <ul>
+    <!-- проходимся по всем пунктам меню -->
     {% for point in menu_points %}
+        <!-- на первом уровне отображем только элементы не имеющие родительского пункта -->
         {% if point.parent is None %}
-            <details>
-            <summary><a href="{{ point.check_absolute_url }}">{{ point.name }}</a></summary>
+            <details open>
+                {% if request.build_absolute_uri == point.get_absolute_url or request.path == point.get_absolute_url %}
+                    <summary><a style="color: red" href="{{ point.get_absolute_url }}">{{ point.name }}</a></summary>
+                {% else %}
+                    <summary><a href="{{ point.get_absolute_url }}">{{ point.name }}</a></summary>
+                {% endif %}
                 {% if point.children.count > 0 %}
+                    <!-- В следствии того что в Django мы не можем использовать Jinja2 macro я ипользую include для рекурсивного вызова шаблона -->
                     <ul>
                         {% for point_child in point.children.all %}
-                            {% include "custom_tags/menu_tags/menu-point.html" with point=point_child%}
+                            {% include "custom_tags/menu_tags/menu-point.html" with point=point_child %}
                         {% endfor %}
                     </ul>
                 {% endif %}

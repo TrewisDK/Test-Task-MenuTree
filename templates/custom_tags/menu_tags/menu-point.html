@@ -1,8 +1,14 @@
-<li><a href="{{ point.url }}">{{ point.name }}</a></li>
+<details open>
+{% if request.build_absolute_uri == point.get_absolute_url or request.path == point.get_absolute_url %}
+    <summary><a style="color: red" href="{{ point.get_absolute_url }}">{{ point.name }}</a></summary>
+{% else %}
+    <summary><a href="{{ point.get_absolute_url }}">{{ point.name }}</a></summary>
+{% endif %}
 {% if point.children.count > 0 %}
     <ul>
         {% for child in point.children.all %}
-            {% include "custom_tags/menu_tags/menu-point.html" with point=child%}
+            {% include "custom_tags/menu_tags/menu-point.html" with point=child %}
         {% endfor %}
     </ul>
 {% endif %}
+</details>
